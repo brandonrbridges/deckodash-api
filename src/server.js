@@ -4,10 +4,20 @@ const express = require('express')
 const app = express()
 
 const cors = require('cors')
-const monoose = require('mongoose')
+const mongoose = require('mongoose')
 
+app.use(cors())
 
+mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => {
+  console.log('DATABASE CONNECTED')
+})
+.catch(e => {
+  console.error(e)
+})
+
+app.use('/api', require('./routes/api'))
 
 app.listen(process.env.PORT || 8080, () => {
-  console.log('server is listening on 300')
+  console.log(`API RUNNING (${process.env.PORT})`)
 })
