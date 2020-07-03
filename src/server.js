@@ -16,7 +16,10 @@ mongoose.connect(process.env.DB_URI, { useNewUrlParser: true, useUnifiedTopology
   console.error(e)
 })
 
-app.use('/api', require('./routes/api'))
+app.use('/api', require('./api/api'))
+app.use('/api/customers', require('./api/customers'))
+app.use('/api/orders', require('./api/orders'))
+app.use('/api/products', require('./api/products'))
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`API RUNNING (${process.env.PORT})`)
