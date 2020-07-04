@@ -25,6 +25,14 @@ let customerSchema = new mongoose.Schema({
   },
   stripe_id: {
     type: String
+  },
+  date_added: {
+    type: Date,
+    default: Date.now
+  },
+  last_updated: {
+    type: Date,
+    default: Date.now
   }
 })
 

@@ -7,7 +7,7 @@ const Order = require('../database/schema/Product')
  */
 router.get('/', (req, res) => {
   Order.find({}).lean().exec((error, orders) => {
-    res.json({
+    return res.json({
       status: 'success',
       orders
     })
@@ -21,7 +21,7 @@ router.get('/:_id', (req, res) => {
   let { _id } = req.params 
 
   Order.findOne({ _id }).lean().exec((error, order) => {
-    res.json({
+    return res.json({
       status: 'success',
       order
     })

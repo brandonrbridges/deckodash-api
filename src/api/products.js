@@ -7,7 +7,7 @@ const Product = require('../database/schema/Product')
  */
 router.get('/', (req, res) => {
   Product.find({}).lean().exec((error, products) => {
-    res.json({
+    return res.json({
       status: 'success',
       products
     })
@@ -21,7 +21,7 @@ router.get('/:_id', (req, res) => {
   let { _id } = req.params 
 
   Product.findOne({ _id }).lean().exec((error, product) => {
-    res.json({
+    return res.json({
       status: 'success',
       product
     })
@@ -32,7 +32,19 @@ router.get('/:_id', (req, res) => {
  * @route /api/products/new
  */
 router.post('/new', (req, res) => {
-  console.log(req.body)
+  new Product({
+    name: req.body.name,
+    sku: req.body.sku,
+    description: req.body.description,
+    price: req.body.price,
+    sale_price: req.body.sale_price,
+    dimensions: {
+      height: req.body.height,
+      width: req.body.width,
+      depth: req.body.depth
+    }
+  })
+  .save()
 })
 
 /**

@@ -9,6 +9,14 @@ let orderSchema = new mongoose.Schema({
   },
   status: {
     type: String
+  },
+  date_created: {
+    type: Date,
+    default: Date.now
+  },
+  last_updated: {
+    type: Date,
+    default: Date.now
   }
 })
 

@@ -21,8 +21,13 @@ let productSchema = new mongoose.Schema({
     width: Number,
     depth: Number
   },
-  category_id: {
-    type: String
+  date_created: {
+    type: Date,
+    default: Date.now
+  },
+  last_updated: {
+    type: Date,
+    default: Date.now
   }
 })
 
