@@ -6,7 +6,11 @@ const Customer = require('../database/schema/Customer')
  * @route /api/customers
  */
 router.get('/', (req, res) => {
-  Customer.find({}).lean().exec((error, customers) => {
+  let {
+    count
+  } = req.params
+  
+  Customer.find({}).sort({ date_added: -1 }).lean().exec((error, customers) => {
     return res.json({
       status: 'success',
       customers
@@ -59,7 +63,9 @@ router.put('/update', (req, res) => {
  * @route /api/customers/delete
  */
 router.delete('/delete', (req, res) => {
-
+  let { _id } = req.body
+  Customer.findOneAndDelete({ _id })
+  .catch(error => console.error(error))
 })
 
 /** export */
