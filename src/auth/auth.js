@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
         password: user.password,
         first_name: user.first_name,
         last_name: user.last_name,
-        role: user.last_name
+        role: user.role
       }
   
       let token = jwt.sign(payload, 'jwt_secret', { expiresIn: '2h' })
