@@ -11,7 +11,10 @@ router.post('/', (req, res) => {
     if(user) {
       let payload = {
         email: user.email,
-        password: user.password
+        password: user.password,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        role: user.last_name
       }
   
       let token = jwt.sign(payload, 'jwt_secret', { expiresIn: '2h' })
@@ -19,9 +22,7 @@ router.post('/', (req, res) => {
       let response = {
         message: 'Token created, Auth Successful',
         token,
-        user: {
-          email: user.email
-        }
+        user
       }
   
       return res.status(200).json(response)
