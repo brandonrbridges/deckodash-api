@@ -58,7 +58,9 @@ router.put('/update', (req, res) => {
  * @route /api/products/delete
  */
 router.delete('/delete', (req, res) => {
-
+  let { _id } = req.body
+  Product.findOneAndDelete({ _id })
+  .catch(error => console.log(error))
 })
 
 /** export */
