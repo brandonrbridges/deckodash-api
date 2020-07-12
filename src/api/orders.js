@@ -1,6 +1,6 @@
 const router = require('express').Router()
 
-const Order = require('../database/schema/Product')
+const Order = require('../database/schema/Order')
 
 /**
  * @route /api/orders
@@ -21,6 +21,9 @@ router.get('/:_id', (req, res) => {
   let { _id } = req.params 
 
   Order.findOne({ _id }).lean().exec((error, order) => {
+    if(error) {
+      console.error(error)
+    }
     return res.json({
       status: 'success',
       order
@@ -32,7 +35,11 @@ router.get('/:_id', (req, res) => {
  * @route /api/orders/new
  */
 router.post('/new', (req, res) => {
-  console.log(req.body)
+  new Order({
+    customer_id: req.body.customer_id,
+    status: req.body.status,
+    staff_id: req.body.staff_id
+  }).save()
 })
 
 /**
@@ -49,5 +56,5 @@ router.delete('/delete', (req, res) => {
 
 })
 
-/** export */
+/** Export */
 module.exports = router

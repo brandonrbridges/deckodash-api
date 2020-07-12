@@ -10,6 +10,9 @@ let orderSchema = new mongoose.Schema({
   status: {
     type: String
   },
+  staff_id: {
+    type: String
+  },
   date_created: {
     type: Date,
     default: Date.now

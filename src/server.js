@@ -32,6 +32,7 @@ app.use('/api', require('./api/api'))
 app.use('/api/customers', middleware, require('./api/customers'))
 app.use('/api/orders', middleware, require('./api/orders'))
 app.use('/api/products', middleware, require('./api/products'))
+app.use('/api/public', require('./api/public'))
 app.use('/api/users', middleware, require('./api/users'))
 
 app.listen(process.env.PORT || 8080, () => {

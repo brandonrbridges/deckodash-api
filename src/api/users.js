@@ -56,5 +56,5 @@ router.delete('/delete', (req, res) => {
 
 })
 
-/** export */
+/** Export */
 module.exports = router

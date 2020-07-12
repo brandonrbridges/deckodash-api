@@ -48,8 +48,7 @@ router.post('/new', (req, res) => {
     },
     email: req.body.email,
     phone: req.body.phone
-  })
-  .save()
+  }).save()
 })
 
 /**
@@ -68,5 +67,5 @@ router.delete('/delete', (req, res) => {
   .catch(error => console.error(error))
 })
 
-/** export */
+/** Export */
 module.exports = router

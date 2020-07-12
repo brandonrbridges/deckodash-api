@@ -43,8 +43,7 @@ router.post('/new', (req, res) => {
       width: req.body.width,
       depth: req.body.depth
     }
-  })
-  .save()
+  }).save()
 })
 
 /**
@@ -63,5 +62,5 @@ router.delete('/delete', (req, res) => {
   .catch(error => console.log(error))
 })
 
-/** export */
+/** Export */
 module.exports = router
