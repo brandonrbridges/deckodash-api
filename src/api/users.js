@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const User = require('../database/schema/User')
+const Order = require('../database/schema/Order')
 
 /**
  * @route /api/users
@@ -21,9 +22,16 @@ router.get('/:_id', (req, res) => {
   let { _id } = req.params 
 
   User.findOne({ _id }).lean().exec((error, user) => {
-    return res.json({
-      status: 'success',
-      user
+    if(error) return console.error(error)
+
+    Order.find({ staff_id: user._id }).lean().exec((error, order) => {
+      if(error) return console.error(error)
+      
+      return res.json({
+        status: 'success',
+        order,
+        user
+      })
     })
   })
 })

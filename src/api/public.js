@@ -16,7 +16,7 @@ router.get('/:_id', (req, res) => {
       message: 'there was an error fetching public order'
     })
 
-    Customer.findOne({ _id: order.customer_id }).lean().exec((error, customer) => {
+    Customer.findOne({ _id: order.customer._id }).lean().exec((error, customer) => {
       if(error) return res.json({
         success: false,
         message: 'there was no customer found with this public order'

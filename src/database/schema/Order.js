@@ -5,8 +5,10 @@ let orderSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
-  customer_id: {
-    type: String
+  customer: {
+    _id: String,
+    first_name: String,
+    last_name: String
   },
   products: {
     type: Array
