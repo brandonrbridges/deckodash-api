@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-const middleware = require('./middleware/middleware')
+const middleware = require('./src/middleware/middleware')
 
 app.use(cors())
 
@@ -26,14 +26,14 @@ mongoose.connect(process.env.DB_URI, {
   console.error(e)
 })
 
-app.use('/auth', require('./auth/auth'))
+app.use('/auth', require('./src/auth/auth'))
 
-app.use('/api', require('./api/api'))
-app.use('/api/customers', middleware, require('./api/customers'))
-app.use('/api/orders', middleware, require('./api/orders'))
-app.use('/api/products', middleware, require('./api/products'))
-app.use('/api/public', require('./api/public'))
-app.use('/api/users', middleware, require('./api/users'))
+app.use('/api/v1/', require('./src/api/api'))
+app.use('/api/v1/customers', middleware, require('./src/api/customers'))
+app.use('/api/v1/orders', middleware, require('./src/api/orders'))
+app.use('/api/v1/products', middleware, require('./src/api/products'))
+app.use('/api/v1/public', require('./src/api/public'))
+app.use('/api/v1/users', middleware, require('./src/api/users'))
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`API RUNNING (${process.env.PORT})`)

@@ -9,6 +9,10 @@ router.post('/', (req, res) => {
     // return user.email
 
     if(user) {
+      if(!req.body.password == user.password) {
+        return res.status('409').json('Auth failed, incorrect password')
+      } 
+      
       let payload = {
         _id: user._id,
         email: user.email,

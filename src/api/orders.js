@@ -1,6 +1,7 @@
 const router = require('express').Router()
 
 const Order = require('../database/schema/Order')
+const User = require('../database/schema/User')
 
 /**
  * @route /api/orders
@@ -17,16 +18,20 @@ router.get('/', (req, res) => {
 /**
  * @route /api/orders/:id
  */
-router.get('/:_id', (req, res) => {
-  let { _id } = req.params 
+router.get('/:order_id', (req, res) => {
+  let { order_id } = req.params 
 
-  Order.findOne({ _id }).lean().exec((error, order) => {
-    if(error) {
-      console.error(error)
-    }
-    return res.json({
-      status: 'success',
-      order
+  Order.findOne({ order_id }).lean().exec((error, order) => {
+    if(error) return console.error(error)
+
+    User.findOne({ _id: order.staff_id }).lean().exec((error, user) => {
+      if(error) return console.error(error)
+
+      return res.json({
+        status: 'success',
+        order,
+        user
+      })
     })
   })
 })
@@ -35,11 +40,23 @@ router.get('/:_id', (req, res) => {
  * @route /api/orders/new
  */
 router.post('/new', (req, res) => {
-  new Order({
-    customer_id: req.body.customer_id,
-    status: req.body.status,
-    staff_id: req.body.staff_id
-  }).save()
+  Order.count({}, (error, count) => {
+    let order_id = count
+    let leading = '0000'
+
+    order_id++
+
+    order_id = '' + order_id
+
+    order_id = 'DCKRM-' + leading.substr(0, leading.length - order_id.length) + order_id
+    
+    new Order({
+      order_id,
+      customer_id: req.body.customer_id,
+      status: req.body.status,
+      staff_id: req.body.staff_id
+    }).save()
+  })
 })
 
 /**
