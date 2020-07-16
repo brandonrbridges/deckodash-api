@@ -1,5 +1,7 @@
+/** Router */
 const router = require('express').Router()
 
+/** Models */
 const User = require('../database/schema/User')
 const Order = require('../database/schema/Order')
 
@@ -26,7 +28,7 @@ router.get('/:_id', (req, res) => {
 
     Order.find({ staff_id: user._id }).lean().exec((error, order) => {
       if(error) return console.error(error)
-      
+
       return res.json({
         status: 'success',
         order,
@@ -42,6 +44,7 @@ router.get('/:_id', (req, res) => {
 router.post('/new', (req, res) => {
   new User({
     email: req.body.email,
+    password: req.body.password,
     phone: req.body.password,
     first_name: req.body.first_name,
     last_name: req.body.last_name,

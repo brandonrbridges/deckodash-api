@@ -26,7 +26,7 @@ mongoose.connect(process.env.DB_URI, {
   console.error(e)
 })
 
-app.use('/auth', require('./src/auth/auth'))
+app.use('/api/v1/auth', require('./src/auth/auth'))
 
 app.use('/api/v1/', require('./src/api/api'))
 app.use('/api/v1/customers', middleware, require('./src/api/customers'))
