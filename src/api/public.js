@@ -40,5 +40,27 @@ router.get('/:_id', (req, res) => {
   })
 })
 
+router.put('/:_id/update', (req, res) => {
+  let { _id } = req.params
+  let { quote_accepted } = req.query
+
+  let status = null
+
+  if(quote_accepted === 'true') {
+    status = 'accepted'
+  } else if(quote_accepted === 'false') {
+    status = 'declined'
+  }
+
+  Order.findOneAndUpdate({ _id }, { $set: { status } }, { new: true })
+  .then(order => {
+    return res.json({
+      success: true,
+      message: 'order updated',
+      order
+    })
+  })  
+})
+
 /** Export */
 module.exports = router
